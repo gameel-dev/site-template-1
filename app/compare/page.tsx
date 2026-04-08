@@ -1,13 +1,23 @@
+import type { Metadata } from "next";
 import Header from "@/components/site/Header";
 import PageHero from "@/components/site/PageHero";
 import LeadFormSection from "@/components/site/LeadFormSection";
 import Footer from "@/components/site/Footer";
+import CompanyName from "@/components/site/CompanyName";
+import { getSiteFromRequestHeaders } from "@/lib/get-site-from-request";
 
-export const metadata = {
-  title: "Compare Options | Sell Your House Fast | EBS",
-  description:
-    "Compare selling to a cash buyer vs. listing with an agent. See why homeowners choose EBS for a fast, simple sale.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteFromRequestHeaders();
+  const company = site?.companyName?.trim() ?? "";
+  return {
+    title: company
+      ? `Compare Options | Sell Your House Fast | ${company}`
+      : "Compare Options | Sell Your House Fast",
+    description: company
+      ? `Compare selling to a cash buyer vs. listing with an agent. See why homeowners choose ${company} for a fast, simple sale.`
+      : "Compare selling to a cash buyer vs. listing with an agent. See why homeowners choose us for a fast, simple sale.",
+  };
+}
 
 const ROWS = [
   {
@@ -77,7 +87,7 @@ export default function ComparePage() {
                       Selling w/ an agent
                     </th>
                     <th className="px-4 py-4 sm:px-6 sm:py-4 font-semibold text-sm sm:text-base">
-                      Sold to Easy Button Software LLC
+                      Sold to <CompanyName />
                     </th>
                   </tr>
                 </thead>

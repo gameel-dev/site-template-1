@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSite } from "@/contexts/SiteContext";
 
 const NAV = [
   { href: "/about", label: "About" },
@@ -11,11 +14,15 @@ const NAV = [
 const PHONE = "(503) 724-8787";
 
 export default function Header() {
+  const { site } = useSite();
+  const brand =
+    typeof site?.siteTitle === "string" ? site.siteTitle.trim() : "";
+
   return (
     <header className="sticky top-0 z-50 bg-dark text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
         <Link href="/" className="text-lg font-semibold">
-          EBS
+          {brand}
         </Link>
         <nav className="hidden sm:flex items-center gap-8">
           {NAV.map(({ href, label }) => (

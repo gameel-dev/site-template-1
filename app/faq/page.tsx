@@ -1,14 +1,21 @@
+import type { Metadata } from "next";
 import Header from "@/components/site/Header";
 import PageHero from "@/components/site/PageHero";
 import FAQAccordion from "@/components/site/FAQAccordion";
 import LeadFormSection from "@/components/site/LeadFormSection";
 import Footer from "@/components/site/Footer";
+import { getSiteFromRequestHeaders } from "@/lib/get-site-from-request";
 
-export const metadata = {
-  title: "FAQ | We Buy Houses | EBS",
-  description:
-    "Frequently asked questions about selling your house for cash. No fees, no commission, no repairs. Get answers from EBS.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteFromRequestHeaders();
+  const company = site?.companyName?.trim() ?? "";
+  return {
+    title: company ? `FAQ | We Buy Houses | ${company}` : "FAQ | We Buy Houses",
+    description: company
+      ? `Frequently asked questions about selling your house for cash. No fees, no commission, no repairs. Get answers from ${company}.`
+      : "Frequently asked questions about selling your house for cash. No fees, no commission, no repairs. Get answers from us.",
+  };
+}
 
 const BULLETS_WHAT_WE_DO = [
   "Fix them up to sell",

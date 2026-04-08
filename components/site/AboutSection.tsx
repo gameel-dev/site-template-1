@@ -1,4 +1,5 @@
 import Image from "next/image";
+import CompanyName from "@/components/site/CompanyName";
 
 export default function AboutSection() {
   return (
@@ -22,7 +23,7 @@ export default function AboutSection() {
               Local investors who buy houses, as-is
             </h2>
             <p className="text-white/80 leading-relaxed mb-6">
-              Easy Button Software LLC is a real estate investment company. We’re local and family-owned, and we help homeowners sell quickly and without hassle. We pay cash and buy in as-is condition—and we offer a range of solutions for all kinds of situations.
+              <CompanyName /> is a real estate investment company. We’re local and family-owned, and we help homeowners sell quickly and without hassle. We pay cash and buy in as-is condition—and we offer a range of solutions for all kinds of situations.
             </p>
             <p className="text-white/80 leading-relaxed mb-8">
               We’ll do a free 5-minute walkthrough at your home, then make a fair, market-based offer. No obligation.

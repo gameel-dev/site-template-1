@@ -1,31 +1,50 @@
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Header from "@/components/site/Header";
 import PageHero from "@/components/site/PageHero";
 import LeadFormSection from "@/components/site/LeadFormSection";
 import Footer from "@/components/site/Footer";
+import CompanyName from "@/components/site/CompanyName";
+import { getSiteFromRequestHeaders } from "@/lib/get-site-from-request";
 
-export const metadata = {
-  title: "Testimonials | What Homeowners Say | EBS",
-  description:
-    "Read what homeowners say about selling their house to Easy Button Software LLC. Real experiences from Sheridan, WY.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteFromRequestHeaders();
+  const company = site?.companyName?.trim() ?? "";
+  return {
+    title: company
+      ? `Testimonials | What Homeowners Say | ${company}`
+      : "Testimonials | What Homeowners Say",
+    description: company
+      ? `Read what homeowners say about selling their house to ${company}. Real experiences from Sheridan, WY.`
+      : "Read what homeowners say about selling their house to us. Real experiences from Sheridan, WY.",
+  };
+}
 
-const TESTIMONIALS = [
-  {
-    quote: "They made selling our house so simple. No showings, no waiting on a buyer's financing. We had a fair offer and closed in two weeks.",
-    author: "Sarah M.",
-    location: "Sheridan, WY",
-  },
-  {
-    quote: "We needed to sell quickly after relocating. EBS gave us a straightforward cash offer and handled everything. Zero hassle.",
-    author: "James & Linda K.",
-    location: "Sheridan area",
-  },
-  {
-    quote: "No repairs, no commission, no runaround. Just a fair price and a closing date that worked for us. Highly recommend.",
-    author: "Michael T.",
-    location: "Sheridan, WY",
-  },
-];
+const TESTIMONIALS: { quote: ReactNode; author: string; location: string }[] =
+  [
+    {
+      quote:
+        "They made selling our house so simple. No showings, no waiting on a buyer's financing. We had a fair offer and closed in two weeks.",
+      author: "Sarah M.",
+      location: "Sheridan, WY",
+    },
+    {
+      quote: (
+        <>
+          We needed to sell quickly after relocating. <CompanyName /> gave us a
+          straightforward cash offer and handled everything. Zero hassle.
+        </>
+      ),
+      author: "James & Linda K.",
+      location: "Sheridan area",
+    },
+    {
+      quote:
+        "No repairs, no commission, no runaround. Just a fair price and a closing date that worked for us. Highly recommend.",
+      author: "Michael T.",
+      location: "Sheridan, WY",
+    },
+  ];
 
 export default function TestimonialsPage() {
   return (

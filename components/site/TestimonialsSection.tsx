@@ -1,15 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
+import CompanyName from "@/components/site/CompanyName";
 
-const TESTIMONIALS = [
+const TESTIMONIALS: { quote: ReactNode; author: string; location: string }[] = [
   {
     quote: "They made selling our house so simple. No showings, no waiting on a buyer’s financing. We had a fair offer and closed in two weeks.",
     author: "Sarah M.",
     location: "Sheridan, WY",
   },
   {
-    quote: "We needed to sell quickly after relocating. EBS gave us a straightforward cash offer and handled everything. Zero hassle.",
+    quote: (
+      <>
+        We needed to sell quickly after relocating. <CompanyName /> gave us a
+        straightforward cash offer and handled everything. Zero hassle.
+      </>
+    ),
     author: "James & Linda K.",
     location: "Sheridan area",
   },

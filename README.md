@@ -1,6 +1,6 @@
-# Easy Button Software – Landing Page
+# Sell-your-house-fast landing (Next.js)
 
-A Next.js landing page inspired by [Easy Button Software LLC](https://www.easybuttonsoftware.com/). Sell-your-house-fast style layout with hero, contact forms, How We Work, Our Advantage, About Us, and footer.
+A Next.js landing template: sell-your-house-fast style layout with hero, contact forms, How We Work, Our Advantage, About Us, and footer. Site copy can be driven by API `companyName`, `siteTitle`, etc.
 
 ## Run locally
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3002](http://localhost:3002).
 
 ## Build
 
@@ -27,7 +27,7 @@ npm start
 
 ## Sections
 
-- **Header** – EBS logo, nav (About, Contact Us, Compare, FAQ, Testimonials), Call Us CTA
+- **Header** – Site title from API, nav (About, Contact Us, Compare, FAQ, Testimonials), Call Us CTA
 - **Hero** – Headline “Sell Your House Fast in Sheridan, WY”, benefits, contact form
 - **How We Work** – 3-step process cards
 - **Our Advantage** – Intro + 6 advantage cards (No Repairs, $0 Fee/Commission, etc.)

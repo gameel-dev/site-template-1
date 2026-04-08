@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSite } from "@/contexts/SiteContext";
 
 const PHONE = "(503) 724-8787";
 
@@ -21,6 +22,8 @@ export default function ContactForm({
   nameEmailPhoneRow = false,
   variant = "default",
 }: ContactFormProps) {
+  const { site } = useSite();
+  const companyName = site?.companyName ?? "";
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [agreedComms, setAgreedComms] = useState(false);
 
@@ -168,7 +171,7 @@ export default function ContactForm({
             className="mt-1 rounded border-stone-300 text-primary focus:ring-primary"
           />
           <label htmlFor="comms" className={checkboxLabelCls}>
-            I agree to receive transactional or conversational communications from Easy Button Software LLC via text messages, phone calls, and emails related to my real estate inquiry. Message frequency varies. Reply STOP to opt out. Reply HELP for help. Msg & data rates may apply. Your information is secure and will not be sold or shared with third parties or affiliates for promotional purposes.
+            I agree to receive transactional or conversational communications from {companyName} via text messages, phone calls, and emails related to my real estate inquiry. Message frequency varies. Reply STOP to opt out. Reply HELP for help. Msg & data rates may apply. Your information is secure and will not be sold or shared with third parties or affiliates for promotional purposes.
           </label>
         </div>
 

@@ -1,3 +1,5 @@
+import CompanyName from "@/components/site/CompanyName";
+
 const ITEMS = [
   { title: "No repairs", body: "We buy your house in as-is condition. You spend $0 on fixes." },
   { title: "$0 fee / commission", body: "We cover closing costs. You pay nothing in commissions." },
@@ -15,7 +17,7 @@ export default function AdvantagesSection() {
           Why work with us
         </p>
         <h2 className="text-3xl sm:text-4xl font-semibold text-ink mb-4">
-          The advantage of selling to EBS
+          The advantage of selling to <CompanyName />
         </h2>
         <p className="text-ink-muted max-w-2xl mb-14">
           We’re a local, family-owned company. We help homeowners sell quickly and without the hassle of a traditional listing—with real advantages you can count on.
