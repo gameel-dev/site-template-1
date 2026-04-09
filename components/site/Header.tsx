@@ -16,7 +16,7 @@ const PHONE = "(503) 724-8787";
 export default function Header() {
   const { site } = useSite();
   const brand =
-    typeof site?.siteTitle === "string" ? site.siteTitle.trim() : "";
+    typeof site?.siteName === "string" ? site.siteName.trim() : "";
 
   return (
     <header className="sticky top-0 z-50 bg-dark text-white">

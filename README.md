@@ -1,6 +1,6 @@
 # Sell-your-house-fast landing (Next.js)
 
-A Next.js landing template: sell-your-house-fast style layout with hero, contact forms, How We Work, Our Advantage, About Us, and footer. Site copy can be driven by API `companyName`, `siteTitle`, etc.
+A Next.js landing template: sell-your-house-fast style layout with hero, contact forms, How We Work, Our Advantage, About Us, and footer. Site copy can be driven by API `companyName`, `siteName`, etc.
 
 ## Run locally
 
