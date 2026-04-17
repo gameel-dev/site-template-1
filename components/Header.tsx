@@ -17,7 +17,9 @@ const NAV_LINKS = [
 
 export default function Header() {
   const { site } = useSite();
-  const companyName = site?.companyName?.trim() || "Our company";
+  const brand =
+    (typeof site?.siteName === "string" ? site.siteName.trim() : "") ||
+    "Our company";
   const phoneRaw = site?.phoneNumber?.trim() ?? "";
   const phoneDigits = digitsOnlyForTel(phoneRaw);
   const phoneLabel =
@@ -27,7 +29,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-surface/95 backdrop-blur border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <Link href="/" className="text-xl font-display font-bold text-ink tracking-tight">
-          {companyName}
+          {brand}
         </Link>
         <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map(({ href, label }) => (

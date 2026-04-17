@@ -18,7 +18,6 @@ const NAV = [
 export default function Header() {
   const { site } = useSite();
   const brand =
-    site?.companyName?.trim() ||
     (typeof site?.siteName === "string" ? site.siteName.trim() : "") ||
     "Our company";
   const phoneRaw = site?.phoneNumber?.trim() ?? "";
