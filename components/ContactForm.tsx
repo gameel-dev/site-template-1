@@ -1,9 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useSite } from "@/contexts/SiteContext";
-
-const PHONE = "(503) 724-8787";
 
 type ContactFormProps = {
   title?: string;
@@ -157,9 +156,14 @@ export default function ContactForm({
           />
           <label htmlFor="terms" className={checkboxLabelCls}>
             I agree to the{" "}
-            <a href="#" className={linkCls}>Terms & Conditions</a>
-            {" "}and{" "}
-            <a href="#" className={linkCls}>Privacy Policy</a>.
+            <Link href="/terms" className={linkCls}>
+              Terms & Conditions
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy-policy" className={linkCls}>
+              Privacy Policy
+            </Link>
+            .
           </label>
         </div>
         <div className="flex items-start gap-2">

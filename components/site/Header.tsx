@@ -2,6 +2,10 @@
 
 import Link from "next/link";
 import { useSite } from "@/contexts/SiteContext";
+import {
+  digitsOnlyForTel,
+  formatPhoneNumberForDisplay,
+} from "@/lib/formatPhoneNumberForDisplay";
 
 const NAV = [
   { href: "/about", label: "About" },
@@ -11,12 +15,16 @@ const NAV = [
   { href: "/testimonials", label: "Testimonials" },
 ];
 
-const PHONE = "(503) 724-8787";
-
 export default function Header() {
   const { site } = useSite();
   const brand =
-    typeof site?.siteName === "string" ? site.siteName.trim() : "";
+    site?.companyName?.trim() ||
+    (typeof site?.siteName === "string" ? site.siteName.trim() : "") ||
+    "Our company";
+  const phoneRaw = site?.phoneNumber?.trim() ?? "";
+  const phoneDigits = digitsOnlyForTel(phoneRaw);
+  const phoneLabel =
+    formatPhoneNumberForDisplay(phoneRaw) || phoneRaw || "";
 
   return (
     <header className="sticky top-0 z-50 bg-dark text-white">
@@ -31,12 +39,21 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        <a
-          href={`tel:${PHONE.replace(/\D/g, "")}`}
-          className="text-sm font-medium text-white/90 hover:text-white transition"
-        >
-          {PHONE}
-        </a>
+        {phoneDigits ? (
+          <a
+            href={`tel:${phoneDigits}`}
+            className="text-sm font-medium text-white/90 hover:text-white transition"
+          >
+            {phoneLabel}
+          </a>
+        ) : (
+          <Link
+            href="/contact"
+            className="text-sm font-medium text-white/90 hover:text-white transition"
+          >
+            Contact
+          </Link>
+        )}
       </div>
     </header>
   );

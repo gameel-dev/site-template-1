@@ -5,6 +5,10 @@ import LeadFormSection from "@/components/site/LeadFormSection";
 import Footer from "@/components/site/Footer";
 import { getSiteFromRequestHeaders } from "@/lib/get-site-from-request";
 import { formatSiteMailingLine } from "@/lib/format-site-address";
+import {
+  digitsOnlyForTel,
+  formatPhoneNumberForDisplay,
+} from "@/lib/formatPhoneNumberForDisplay";
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteFromRequestHeaders();
@@ -19,12 +23,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const PHONE = "(503) 724-8787";
-
 export default async function ContactPage() {
   const site = await getSiteFromRequestHeaders();
   const addressLine = site ? formatSiteMailingLine(site) : "";
   const email = site?.email?.trim() ?? "";
+  const phoneRaw = site?.phoneNumber?.trim() ?? "";
+  const phoneDigits = digitsOnlyForTel(phoneRaw);
+  const phoneLabel =
+    formatPhoneNumberForDisplay(phoneRaw) || phoneRaw || "";
 
   return (
     <>
@@ -55,15 +61,17 @@ export default async function ContactPage() {
                   </a>
                 </div>
               ) : null}
-              <div>
-                <p className="font-semibold text-white mb-1">Phone</p>
-                <a
-                  href={`tel:${PHONE.replace(/\D/g, "")}`}
-                  className="text-white/90 hover:text-white transition"
-                >
-                  {PHONE}
-                </a>
-              </div>
+              {phoneDigits ? (
+                <div>
+                  <p className="font-semibold text-white mb-1">Phone</p>
+                  <a
+                    href={`tel:${phoneDigits}`}
+                    className="text-white/90 hover:text-white transition"
+                  >
+                    {phoneLabel}
+                  </a>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>

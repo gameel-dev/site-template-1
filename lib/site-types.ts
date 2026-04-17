@@ -10,6 +10,8 @@ export interface SiteDetails {
   siteTitle: string;
   companyName: string;
   email: string;
+  /** E.164 or digits; optional if older API responses omit it */
+  phoneNumber?: string | null;
   address: string;
   cityOperatedIn: string;
   stateOperatedIn: string;

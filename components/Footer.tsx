@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSite } from "@/contexts/SiteContext";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
@@ -9,6 +12,9 @@ const NAV_LINKS = [
 ];
 
 export default function Footer() {
+  const { site } = useSite();
+  const companyName = site?.companyName?.trim() || "Our company";
+
   return (
     <footer className="bg-slate-900 text-slate-300 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,7 +31,7 @@ export default function Footer() {
             {" | "}
             <Link href="#" className="hover:text-white underline">Terms of use</Link>
           </p>
-          <p>© 2026 Company LLC. All rights reserved.</p>
+          <p>© 2026 {companyName}. All rights reserved.</p>
         </div>
       </div>
     </footer>
