@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { useSite } from "@/contexts/SiteContext";
 
 type ContactFormProps = {
@@ -23,8 +23,45 @@ export default function ContactForm({
 }: ContactFormProps) {
   const { site } = useSite();
   const companyName = site?.companyName ?? "";
+  const [address, setAddress] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [agreedTerms, setAgreedTerms] = useState(false);
   const [agreedComms, setAgreedComms] = useState(false);
+  const [toast, setToast] = useState<{ kind: "success" | "error"; message: string } | null>(null);
+
+  useEffect(() => {
+    if (!toast) return;
+    const id = window.setTimeout(() => setToast(null), 4500);
+    return () => window.clearTimeout(id);
+  }, [toast]);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    if (!agreedTerms || !agreedComms) {
+      setToast({
+        kind: "error",
+        message: "Please check both agreement boxes before submitting.",
+      });
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    setToast({ kind: "success", message: "Thank you! Your request was submitted successfully." });
+    setAddress("");
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAgreedTerms(false);
+    setAgreedComms(false);
+  }
 
   const isHero = variant === "hero";
   const formClassName = isHero
@@ -40,9 +77,10 @@ export default function ContactForm({
     : "w-full px-4 py-2.5 border border-stone-300 rounded-lg focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition";
 
   return (
+    <>
     <form
       className={formClassName}
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleSubmit}
     >
       {title ? (
         <h2 className={`text-xl font-semibold mb-4 ${isHero ? "text-white" : "text-ink"}`}>{title}</h2>
@@ -59,6 +97,8 @@ export default function ContactForm({
             type="text"
             placeholder="Address (Required)"
             required
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             className={inputCls}
           />
         </div>
@@ -74,6 +114,8 @@ export default function ContactForm({
                   type="text"
                   placeholder="Name (Required)"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className={inputCls}
                 />
               </div>
@@ -86,6 +128,8 @@ export default function ContactForm({
                   type="email"
                   placeholder="Email (Required)"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className={inputCls}
                 />
               </div>
@@ -98,6 +142,8 @@ export default function ContactForm({
                   type="tel"
                   placeholder="Phone (Required)"
                   required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className={inputCls}
                 />
               </div>
@@ -114,6 +160,8 @@ export default function ContactForm({
                     type="text"
                     placeholder="Name (Required)"
                     required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className={inputCls}
                   />
                 </div>
@@ -126,6 +174,8 @@ export default function ContactForm({
                     type="email"
                     placeholder="Email (Required)"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className={inputCls}
                   />
                 </div>
@@ -139,6 +189,8 @@ export default function ContactForm({
                   type="tel"
                   placeholder="Phone (Required)"
                   required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className={inputCls}
                 />
               </div>
@@ -187,5 +239,23 @@ export default function ContactForm({
         </button>
       </div>
     </form>
+
+    {toast ? (
+      <div
+        className="fixed bottom-6 left-1/2 z-[100] max-w-md -translate-x-1/2 px-4 w-[calc(100%-2rem)]"
+        role="status"
+      >
+        <div
+          className={
+            toast.kind === "success"
+              ? "rounded-lg border border-emerald-600/30 bg-emerald-950 text-emerald-50 px-4 py-3 text-sm font-medium shadow-lg shadow-black/20"
+              : "rounded-lg border border-red-600/30 bg-red-950 text-red-50 px-4 py-3 text-sm font-medium shadow-lg shadow-black/20"
+          }
+        >
+          {toast.message}
+        </div>
+      </div>
+    ) : null}
+    </>
   );
 }
